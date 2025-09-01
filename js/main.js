@@ -43,7 +43,6 @@
               'filter': [
                 'all',
                 ['!=', ['get', 'hide_3d'], true],
-                ['within', ./data/mollan.geojson]
               ],
               'paint': {
                   'fill-extrusion-color': [
