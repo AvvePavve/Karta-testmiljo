@@ -38,7 +38,10 @@
           'type': 'geojson',
           'data': './data/mollan.geojson',
       });
-    
+
+  fetch('./data/mollan.geojson')
+   .then(res => res.json())
+   .then(geojson => {
       map.addLayer({
               'id': '3d-buildings',
               'source': 'openfreemap',
@@ -48,7 +51,7 @@
               'filter': [
                 'all',
                 ['!=', ['get', 'hide_3d'], true],
-                ['within', 'extrude-area']
+                ['within', 'geojson']
               ],
               'paint': {
                   'fill-extrusion-color': [
