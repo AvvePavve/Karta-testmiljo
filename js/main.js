@@ -46,7 +46,7 @@
                   'fill-extrusion-color': [
                       'interpolate',
                       ['linear'],
-                      ['get', 'render_height'], 0, 'lightgray', 200, 'royalblue', 400, 'lightblue'
+                      ['get', 'render_height'], 0, '#fffef6', 200, '#f47c31'
                   ],
                   'fill-extrusion-height': [
                       'interpolate',
