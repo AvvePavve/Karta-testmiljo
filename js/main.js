@@ -51,7 +51,7 @@
               'filter': [
                 'all',
                 ['!=', ['get', 'hide_3d'], true],
-                ['within', 'geojson']
+                ['within', geojson]
               ],
               'paint': {
                   'fill-extrusion-color': [
