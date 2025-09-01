@@ -5,52 +5,64 @@
 //    zoom: 9 // starting zoom
 //    });
 
-    const map = (window.map = new maplibregl.Map({
-        container: 'map',
-        zoom: 12,
-        center: [13.011586184559851, 55.591988278009765],
-        pitch: 70,
-        hash: true,
-        style: {
-            version: 8,
-            sources: {
-                osm: {
-                    type: 'raster',
-                    tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
-                    tileSize: 256,
-                    attribution: '&copy; OpenStreetMap Contributors',
-                    maxzoom: 19
-                },
-                // Use a different source for terrain and hillshade layers, to improve render quality
-                terrainSource: {
-                    type: 'raster-dem',
-                    url: 'https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=AnloT5VXYX3E6sqkSTtS',
-                },
-                hillshadeSource: {
-                    type: 'raster-dem',
-                    url: 'https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=AnloT5VXYX3E6sqkSTtS',
-                }
-            },
-            layers: [
-                {
-                    id: 'osm',
-                    type: 'raster',
-                    source: 'osm'
-                },
-                {
-                    id: 'hills',
-                    type: 'hillshade',
-                    source: 'hillshadeSource',
-                    layout: {visibility: 'visible'},
-                    paint: {'hillshade-shadow-color': '#473B24'}
-                }
-            ],
-            terrain: {
-                source: 'terrainSource',
-                exaggeration: 1
-            },
-            sky: {}
-        },
-        maxZoom: 18,
-        maxPitch: 85
-    }));
+  const map = new maplibregl.Map({
+      style: 'https://tiles.openfreemap.org/styles/bright',
+      center: [13.011586184559851, 55.591988278009765],
+      zoom: 15.5,
+      pitch: 45,
+      bearing: -17.6,
+      container: 'map',
+      canvasContextAttributes: {antialias: true}
+  });
+
+  // The 'building' layer in the streets vector source contains building-height
+  // data from OpenStreetMap.
+  map.on('load', () => {
+      // Insert the layer beneath any symbol layer.
+      const layers = map.getStyle().layers;
+
+      let labelLayerId;
+      for (let i = 0; i < layers.length; i++) {
+          if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+              labelLayerId = layers[i].id;
+              break;
+          }
+      }
+
+      map.addSource('openfreemap', {
+          url: `https://tiles.openfreemap.org/planet`,
+          type: 'vector',
+      });
+
+      map.addLayer(
+          {
+              'id': '3d-buildings',
+              'source': 'openfreemap',
+              'source-layer': 'building',
+              'type': 'fill-extrusion',
+              'minzoom': 15,
+              'filter': ['!=', ['get', 'hide_3d'], true],
+              'paint': {
+                  'fill-extrusion-color': [
+                      'interpolate',
+                      ['linear'],
+                      ['get', 'render_height'], 0, 'lightgray', 200, 'royalblue', 400, 'lightblue'
+                  ],
+                  'fill-extrusion-height': [
+                      'interpolate',
+                      ['linear'],
+                      ['zoom'],
+                      15,
+                      0,
+                      16,
+                      ['get', 'render_height']
+                  ],
+                  'fill-extrusion-base': ['case',
+                      ['>=', ['get', 'zoom'], 16],
+                      ['get', 'render_min_height'], 0
+                  ]
+              }
+          },
+          labelLayerId
+      );
+  });
