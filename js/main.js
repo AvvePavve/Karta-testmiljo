@@ -34,14 +34,22 @@
           type: 'vector',
       });
 
-      map.addLayer(
-          {
+      map.addSource('extrude-area', {
+          'type': 'geojson',
+          'data': './data/mollan.geojson',
+      });
+    
+      map.addLayer({
               'id': '3d-buildings',
               'source': 'openfreemap',
               'source-layer': 'building',
               'type': 'fill-extrusion',
               'minzoom': 15,
-              'filter': ['!=', ['get', 'hide_3d'], true],
+              'filter': [
+                'all',
+                ['!=', ['get', 'hide_3d'], true],
+                ['within', 'extrude-area']
+              ],
               'paint': {
                   'fill-extrusion-color': [
                       'interpolate',
