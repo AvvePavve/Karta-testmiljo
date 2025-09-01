@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="utf-8" />
-  <title>Testkarta</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>3D-test</title>
   
-  <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
-  <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+  <meta property="og:description" content="3D-byggnader med extrudering." />
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@5.7.0/dist/maplibre-gl.css' />
+  <script src='https://unpkg.com/maplibre-gl@5.7.0/dist/maplibre-gl.js'></script>
+  
+  <style>
+      body { margin: 0; padding: 0; }
+      html, body, #map { height: 100%; }
+  </style>
 </head>
 
 <body>
-  <div id='map' style='width: 100vw; height: 100vh;'></div>
-  
-  <script type="module" src="js/main.js" defer></script>
+<div id="map"></div>  
+<script type="module" src="js/main.js" defer></script>
 </body>
+</html>
