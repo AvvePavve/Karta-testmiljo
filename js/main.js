@@ -24,13 +24,11 @@
                 // Use a different source for terrain and hillshade layers, to improve render quality
                 terrainSource: {
                     type: 'raster-dem',
-                    url: 'https://demotiles.maplibre.org/terrain-tiles/tiles.json',
-                    tileSize: 256
+                    url: 'https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=AnloT5VXYX3E6sqkSTtS',
                 },
                 hillshadeSource: {
                     type: 'raster-dem',
-                    url: 'https://demotiles.maplibre.org/terrain-tiles/tiles.json',
-                    tileSize: 256
+                    url: 'https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=AnloT5VXYX3E6sqkSTtS',
                 }
             },
             layers: [
