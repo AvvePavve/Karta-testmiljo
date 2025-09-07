@@ -48,7 +48,7 @@
                   'fill-extrusion-color': [
                       'interpolate',
                       ['linear'],
-                      ['get', 'render_height'], 0, '#fffef6', 40, '#f47c31'
+                      ['get', 'render_height'], 0, '#fffef6', 25, '#f47c31'
                   ],
                   'fill-extrusion-height': [
                       'interpolate',
